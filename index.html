@@ -6,7 +6,7 @@
     <title>WEBSITES</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,212 +16,392 @@
 
         body {
             font-family: 'Oswald', sans-serif;
-            background: #1a1a1a;
+            background: #0a0a0a;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow-x: hidden;
+            padding: 40px 20px;
         }
 
-        /* Diagonal stripe background */
+        /* Dynamic speed lines background */
         body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 40px,
-                rgba(204, 51, 51, 0.03) 40px,
-                rgba(204, 51, 51, 0.03) 80px
-            );
-            pointer-events: none;
-        }
-
-        /* Red geometric accent */
-        body::after {
             content: '';
             position: fixed;
             top: 0;
             left: 0;
-            width: 8px;
+            width: 100%;
             height: 100%;
-            background: #cc3333;
+            background:
+                linear-gradient(75deg, transparent 45%, rgba(255,50,50,0.03) 45%, rgba(255,50,50,0.03) 55%, transparent 55%),
+                linear-gradient(105deg, transparent 45%, rgba(255,200,0,0.03) 45%, rgba(255,200,0,0.03) 55%, transparent 55%),
+                linear-gradient(60deg, transparent 40%, rgba(255,50,50,0.02) 40%, rgba(255,50,50,0.02) 42%, transparent 42%),
+                linear-gradient(120deg, transparent 58%, rgba(255,200,0,0.02) 58%, rgba(255,200,0,0.02) 60%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Motion streak - top left */
+        .streak {
+            position: fixed;
+            background: linear-gradient(90deg, #ff3232, transparent);
+            height: 3px;
+            transform-origin: left center;
+            opacity: 0.6;
+        }
+
+        .streak-1 { top: 15%; left: 0; width: 200px; transform: rotate(-5deg); }
+        .streak-2 { top: 25%; left: 0; width: 150px; transform: rotate(-8deg); background: linear-gradient(90deg, #ffc800, transparent); }
+        .streak-3 { top: 35%; left: 0; width: 180px; transform: rotate(-3deg); }
+        .streak-4 { bottom: 20%; right: 0; width: 220px; transform: rotate(5deg) scaleX(-1); }
+        .streak-5 { bottom: 30%; right: 0; width: 160px; transform: rotate(8deg) scaleX(-1); background: linear-gradient(90deg, #ffc800, transparent); }
+
+        /* Dynamic diagonal accent */
+        .diagonal-accent {
+            position: fixed;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 200%;
+            background: linear-gradient(to bottom, #ff3232 0%, #ff3232 50%, #ffc800 50%, #ffc800 100%);
+            transform: rotate(-20deg);
+            opacity: 0.08;
         }
 
         .container {
-            padding: 60px 40px;
             position: relative;
             z-index: 1;
-            max-width: 600px;
+            max-width: 650px;
+            width: 100%;
         }
 
         h1 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 72px;
-            color: #cc3333;
+            font-size: 100px;
+            color: #ff3232;
             text-transform: uppercase;
-            letter-spacing: 8px;
-            margin-bottom: 50px;
+            letter-spacing: 15px;
+            margin-bottom: 15px;
             position: relative;
             display: inline-block;
+            transform: skewX(-5deg);
+            text-shadow:
+                4px 4px 0 #ffc800,
+                8px 8px 0 rgba(0,0,0,0.3);
         }
 
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: #f5f5dc;
+        .subtitle {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            color: #ffc800;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            transform: skewX(-5deg);
         }
 
         .section {
-            margin-bottom: 50px;
+            margin-bottom: 45px;
+            position: relative;
         }
 
         h2 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 28px;
-            color: #f5f5dc;
+            font-size: 36px;
+            color: #ffc800;
             text-transform: uppercase;
-            letter-spacing: 6px;
+            letter-spacing: 8px;
             margin-bottom: 20px;
-            padding-left: 20px;
-            border-left: 4px solid #cc3333;
+            padding-left: 25px;
             position: relative;
+            transform: skewX(-5deg);
         }
 
-        /* Red circle accent for section headers */
+        /* Speed arrow accent */
         h2::before {
             content: '';
             position: absolute;
-            left: -12px;
+            left: 0;
             top: 50%;
             transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            background: #cc3333;
-            border-radius: 50%;
+            width: 0;
+            height: 0;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            border-left: 18px solid #ff3232;
+        }
+
+        /* Motion lines after header */
+        h2::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff3232 20%, #ff3232);
         }
 
         .links {
             display: flex;
             flex-direction: column;
+            gap: 8px;
+            padding-left: 25px;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
             gap: 12px;
-            padding-left: 24px;
+        }
+
+        .favicon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .favicon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .favicon-placeholder {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
         }
 
         a {
             color: #e8e8e8;
             text-decoration: none;
             font-size: 18px;
-            font-weight: 400;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.2s;
+            letter-spacing: 3px;
+            transition: all 0.15s ease;
             position: relative;
             display: inline-block;
-            padding: 8px 0;
+            padding: 10px 0;
         }
 
-        a::before {
-            content: '▶';
+        a::after {
+            content: '';
             position: absolute;
-            left: -24px;
-            color: #cc3333;
-            font-size: 10px;
-            opacity: 0;
-            transition: opacity 0.2s;
+            bottom: 5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff3232, #ffc800);
+            transition: width 0.2s ease;
         }
 
         a:hover {
-            color: #cc3333;
-            transform: translateX(10px);
+            color: #ff3232;
+            transform: translateX(15px) skewX(-5deg);
         }
 
-        a:hover::before {
-            opacity: 1;
+        a:hover::after {
+            width: 100%;
         }
 
         .disabled {
-            color: #666;
+            color: #444;
             font-size: 18px;
-            font-weight: 400;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            padding: 8px 0;
-            padding-left: 0;
+            letter-spacing: 3px;
+            padding: 10px 0;
             font-style: italic;
         }
 
-        /* Geometric decoration */
-        .geo-accent {
+        /* Geometric shapes */
+        .geo-circle {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 80px;
-            height: 80px;
-            border: 4px solid #cc3333;
+            bottom: 80px;
+            left: 40px;
+            width: 60px;
+            height: 60px;
+            border: 4px solid #ff3232;
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .geo-triangle {
+            position: fixed;
+            top: 60px;
+            right: 60px;
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 70px solid #ffc800;
+            opacity: 0.4;
+            transform: rotate(15deg);
+        }
+
+        .geo-square {
+            position: fixed;
+            bottom: 150px;
+            right: 80px;
+            width: 40px;
+            height: 40px;
+            background: #ff3232;
+            opacity: 0.3;
             transform: rotate(45deg);
         }
 
-        .geo-accent::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 30px;
-            height: 30px;
-            background: #cc3333;
-        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 60px;
+                letter-spacing: 8px;
+            }
 
-        /* Top right triangle */
-        .triangle {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 0;
-            height: 0;
-            border-left: 120px solid transparent;
-            border-top: 120px solid #cc3333;
+            h2 {
+                font-size: 28px;
+            }
+
+            .streak, .geo-circle, .geo-triangle, .geo-square {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="triangle"></div>
-    <div class="geo-accent"></div>
+    <!-- Speed streaks -->
+    <div class="streak streak-1"></div>
+    <div class="streak streak-2"></div>
+    <div class="streak streak-3"></div>
+    <div class="streak streak-4"></div>
+    <div class="streak streak-5"></div>
+
+    <!-- Diagonal accent -->
+    <div class="diagonal-accent"></div>
+
+    <!-- Geometric shapes -->
+    <div class="geo-circle"></div>
+    <div class="geo-triangle"></div>
+    <div class="geo-square"></div>
 
     <div class="container">
         <h1>WEBSITES</h1>
+        <p class="subtitle">velocity in motion</p>
 
         <div class="section">
             <h2>WORK</h2>
             <div class="links">
-                <a href="https://toddlburns.github.io/todo-app" target="_blank" rel="noopener noreferrer">to-do app</a>
-                <a href="https://toddlburns.github.io/udiscover-search" target="_blank" rel="noopener noreferrer">uDiscover Buy Button Speeder Upper</a>
-                <a href="https://toddlburns.github.io/yt-tracker" target="_blank" rel="noopener noreferrer">youtube upload tracker</a>
-                <a href="https://toddlburns.github.io/udiscover-image-checker" target="_blank" rel="noopener noreferrer">udiscover image checker</a>
-                <a href="https://toddlburns.github.io/udiscover-genre-artist/" target="_blank" rel="noopener noreferrer">udiscover genre/artist page</a>
-                <a href="https://toddlburns.github.io/tsov-inventory-checker" target="_blank" rel="noopener noreferrer">tsov low inventory checker</a>
-                <span class="disabled">low inventory checker - email</span>
-                <a href="https://product-screenshot-crawler-production.up.railway.app/" target="_blank" rel="noopener noreferrer">product screenshot crawler</a>
+                <div class="link-item">
+                    <span class="favicon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                            <defs>
+                                <radialGradient id="green-glow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+                                    <stop offset="30%" stop-color="#39ff14"/>
+                                    <stop offset="70%" stop-color="#00cc00"/>
+                                    <stop offset="100%" stop-color="#00cc00" stop-opacity="0"/>
+                                </radialGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="30" fill="url(#green-glow)"/>
+                        </svg>
+                    </span>
+                    <a href="https://toddlburns.github.io/udiscover-search" target="_blank" rel="noopener noreferrer">uDiscover Buy Button Speeder Upper</a>
+                </div>
+                <div class="link-item">
+                    <span class="favicon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                            <defs>
+                                <radialGradient id="cyan-glow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#00fff2"/>
+                                    <stop offset="60%" stop-color="#0cc"/>
+                                    <stop offset="100%" stop-color="#0aa" stop-opacity="0"/>
+                                </radialGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="40" fill="url(#cyan-glow)"/>
+                        </svg>
+                    </span>
+                    <a href="https://toddlburns.github.io/yt-tracker" target="_blank" rel="noopener noreferrer">youtube upload tracker</a>
+                </div>
+                <div class="link-item">
+                    <span class="favicon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                            <defs>
+                                <radialGradient id="orange-glow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+                                    <stop offset="30%" stop-color="#ffa500"/>
+                                    <stop offset="70%" stop-color="#e65c00"/>
+                                    <stop offset="100%" stop-color="#e65c00" stop-opacity="0"/>
+                                </radialGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="30" fill="url(#orange-glow)"/>
+                        </svg>
+                    </span>
+                    <a href="https://toddlburns.github.io/udiscover-image-checker" target="_blank" rel="noopener noreferrer">udiscover image checker</a>
+                </div>
+                <div class="link-item">
+                    <span class="favicon-placeholder"></span>
+                    <a href="https://toddlburns.github.io/udiscover-genre-artist/" target="_blank" rel="noopener noreferrer">udiscover genre/artist page</a>
+                </div>
+                <div class="link-item">
+                    <span class="favicon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                            <defs>
+                                <radialGradient id="pink-glow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+                                    <stop offset="30%" stop-color="#ff69b4"/>
+                                    <stop offset="70%" stop-color="#cc0066"/>
+                                    <stop offset="100%" stop-color="#cc0066" stop-opacity="0"/>
+                                </radialGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="30" fill="url(#pink-glow)"/>
+                        </svg>
+                    </span>
+                    <a href="https://toddlburns.github.io/tsov-inventory-checker" target="_blank" rel="noopener noreferrer">tsov low inventory checker</a>
+                </div>
+                <div class="link-item">
+                    <span class="favicon-placeholder"></span>
+                    <span class="disabled">low inventory checker - email</span>
+                </div>
+                <div class="link-item">
+                    <span class="favicon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" fill="#1a1a2e"/>
+                            <circle cx="50" cy="50" r="35" stroke="#FF69B4" stroke-width="4" fill="none"/>
+                            <circle cx="50" cy="50" r="8" fill="#00CED1"/>
+                        </svg>
+                    </span>
+                    <a href="https://product-screenshot-crawler-production.up.railway.app/" target="_blank" rel="noopener noreferrer">product screenshot crawler</a>
+                </div>
             </div>
         </div>
 
         <div class="section">
             <h2>NOT-WORK</h2>
             <div class="links">
-                <a href="https://toddlburns.github.io/crambe-repetita-hats/" target="_blank" rel="noopener noreferrer">hats</a>
-                <a href="https://toddlburns.github.io/globe-playlists/" target="_blank" rel="noopener noreferrer">playlists</a>
-                <a href="https://toddlburns.github.io/nba-today" target="_blank" rel="noopener noreferrer">nba tonight</a>
+                <div class="link-item">
+                    <span class="favicon-placeholder"></span>
+                    <a href="https://toddlburns.github.io/crambe-repetita-hats/" target="_blank" rel="noopener noreferrer">hats</a>
+                </div>
+                <div class="link-item">
+                    <span class="favicon-placeholder"></span>
+                    <a href="https://toddlburns.github.io/globe-playlists/" target="_blank" rel="noopener noreferrer">playlists</a>
+                </div>
+                <div class="link-item">
+                    <span class="favicon-placeholder"></span>
+                    <a href="https://toddlburns.github.io/nba-today" target="_blank" rel="noopener noreferrer">nba tonight</a>
+                </div>
+                <div class="link-item">
+                    <span class="favicon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                            <path d="M20 55 L40 75 L80 25" stroke="#FF1493" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <a href="https://toddlburns.github.io/todo-app" target="_blank" rel="noopener noreferrer">to-do app</a>
+                </div>
             </div>
         </div>
     </div>
